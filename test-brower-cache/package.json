@@ -1,0 +1,14 @@
+{
+  "name": "testcache",
+  "version": "1.0.0",
+  "description": "本文是测试浏览器缓存的方式，包括强缓存和协商缓存和不使用缓存；\r 本文是通过后端设置响应头的方式去指定缓存方式，本案例采用的是node + koa；\r 本文html/css/js等文件都是由服务器返回；",
+  "main": "index.js",
+  "scripts": {
+    "test": "echo \"Error: no test specified\" && exit 1"
+  },
+  "author": "",
+  "license": "ISC",
+  "dependencies": {
+    "koa": "^2.13.4"
+  }
+}
