@@ -1,0 +1,127 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta http-equiv="X-UA-Compatible" content="IE=edge" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>Document</title>
+    <style>
+      .audioElt-box {
+        height: 500px;
+        display: flex;
+        flex-direction: column;
+        justify-content: center;
+        align-items: center;
+        border: 1px solid #000;
+      }
+      .common {
+        margin: 20px 0;
+      }
+      .audioElt-btns {
+        display: flex;
+        justify-content: center;
+      }
+      .audioElt-btns button:nth-child(2) {
+        margin: 0 20px;
+      }
+    </style>
+  </head>
+  <body>
+    <div class="audioElt-box">
+      <div class="box-title">测试audio播放音乐</div>
+      <div class="audioElt-content common">
+        <div class="box-audioElt">
+          <audio controls id="audioElt" src="./歌之初乐队 - 人呐.mp3"></audio>
+        </div>
+        <div class="audioElt-btns common">
+          <button id="playBtn">播放</button>
+          <button id="pauseBtn">暂停</button>
+          <button id="stopBtn">停止</button>
+        </div>
+        <div class="audioElt-operator common">
+          <span>
+            音量：
+            <input id="gain-control" type="range" min="1" max="5" step="0.1" value="1" />
+          </span>
+          <span>
+            声道
+            <label id="panning-label">(正常0)</label>
+            <input id="panning-control" type="range" min="-1" max="1" step="0.1" value="0" />
+          </span>
+        </div>
+      </div>
+    </div>
+
+    <script>
+      // 以下操作，可以使用上下文去控制播放等操作：
+      // 补充下面节点构造函数可以用new创建，然后第一个参数是音频上下文，或者直接使用上下文上面的方法创建对应节点操作器
+      const playBtn = document.getElementById("playBtn");
+      const pauseBtn = document.getElementById("pauseBtn");
+      const stopBtn = document.getElementById("stopBtn");
+      const gainControl = document.getElementById("gain-control");
+      const panningControl = document.getElementById("panning-control");
+      const panningLabel = document.getElementById("panning-label");
+      // 1.创建音频上下文
+      const audioCtx = new AudioContext();
+      // 2.创建createMediaElementSource对象，使得指定资源具备可播放或修改，并植入ctx音频上下文中
+      const audioElt = document.getElementById("audioElt");
+      const mediaSource = audioCtx.createMediaElementSource(audioElt); // 参数是audio对应html元素
+      // const mediaSource = new MediaElementAudioSourceNode(audioCtx, {
+      //   mediaElement: audioElt,
+      // });
+
+      // ...中间可以根据需要去添加多个节点操作，但是都得使用mediaSource链式connet上：开始
+      // 3.创建控制立体效果，即左右扬声器，pan值从-1至1：
+      // const panNode = audioCtx.createStereoPanner();
+      const panNode = new StereoPannerNode(audioCtx, { pan: 0 });
+      // 4.创建声音大小调节的节点
+      const gainNode = audioCtx.createGain();
+
+      // ...中间可以根据需要去添加多个节点操作：结束
+
+      // 最后：都需要connet链接到音频最终的输出设备，但是都得使用mediaSource链式connet上，ctx.destination指向最终设备，比如扬声器等进行播放
+      mediaSource.connect(panNode).connect(gainNode).connect(audioCtx.destination);
+
+      // 注册播放事件
+      playBtn.addEventListener("click", () => {
+        audioElt.play();
+      });
+      // 注册暂停
+      pauseBtn.addEventListener("click", () => {
+        // console.log([audioElt]);
+        audioElt.pause();
+      });
+      // 注册停止
+      stopBtn.addEventListener("click", () => {
+        audioElt.pause();
+        audioElt.currentTime = 0;
+      });
+
+      // 设置声道：
+      gainControl.addEventListener("input", () => {
+        let value = Number(gainControl.value) || 0;
+        console.log(gainNode.gain);
+        gainNode.gain.value = value;
+      });
+
+      // 设置音量：
+      // 补充说明：即此处音量不是单纯声音大小，涉及到频率音量等，非专业人士，此处暂时仅测试而已
+      //GainNode只有一個簡單的只讀屬性，名為gain，完整書寫GainNode.gain，本身沒什麼，但是GainNode.gain的返回值可是個大家夥，是個a-rate類型的AudioParam。
+      // AudioParam總共有2個類型，一個是a-rate還有一個是k-rate，前者AudioParam為音頻信號每個樣品幀的當前聲音參數值；後者的AudioParam使用整個塊（即128個樣本幀）相同的初始音頻參數值。
+      // AudioParam包含諸多屬性和方法，都是與音量控制相關的。
+      panningControl.addEventListener("input", () => {
+        let value = Number(panningControl.value) || 0;
+        panNode.pan.value = value;
+        panningLabel.innerHTML = value === 0 ? "(正常0)" : value > 0 ? `(右${value.toFixed(2)})` : `(左${value.toFixed(2)})`;
+      });
+
+
+			// 本文参考文献：
+      // https://github.com/mdn/webaudio-examples/blob/master/stereo-panner-node/index.html
+			// https://copyfuture.com/blogs-details/20211024191534966n
+			// https://juejin.cn/post/7133096500753596446
+			// https://qa.1r1g.com/sf/ask/358669111/
+			// https://developer.mozilla.org/en-US/docs/Web/API/Web_Audio_API
+    </script>
+  </body>
+</html>
