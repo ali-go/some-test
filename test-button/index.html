@@ -1,0 +1,76 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta http-equiv="X-UA-Compatible" content="IE=edge" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>Document</title>
+    <style>
+			/* 本质上旋转的不是按钮的边框，而是按钮伪类的盒子在转 */
+      body {
+        background-color: #000;
+      }
+      .box {
+        margin-top: 200px;
+        text-align: center;
+      }
+      .btn {
+        position: relative;
+        z-index: 1;
+        padding: 5px 12px;
+        width: 100px;
+        aspect-ratio: 16/9;
+				/* out-line一开始为了方便调试打开，后面注释 */
+        /* outline: 4px solid #fff; */
+        /* background-color: linear-gradient(#063053, #395873, #5c7c99); */
+        border: none;
+        border-radius: 10px;
+        background-color: #000;
+        color: blue;
+        overflow: hidden;
+      }
+
+      /* 转的颜色的伪类：该伪类一直在转动，但是由于其余部分被下面的伪类盖住，所以效果只看到留出的边框尺寸位置在转动 */
+      .btn::before {
+        content: "";
+        position: absolute;
+        left: 50%;
+        top: 50%;
+        z-index: -2;
+        width: 200%;
+        height: 200%;
+        /* background-color: skyblue; */
+        background-image: linear-gradient(red, green, blue);
+        transform-origin: 0 0;
+        animation: rotate 2s infinite linear;
+      }
+
+      /* 留出转颜色伪类的空间位置 */
+      .btn::after {
+        position: absolute;
+        z-index: -1;
+        left: 2px;
+        top: 2px;
+        content: "";
+        border-radius: 10px;
+        width: calc(100% - 4px);
+        height: calc(100% - 4px);
+        background-color: green;
+				/* 注意此背景色要和按钮的一致，该伪类作用就是盖住上面的伪类，只留出需要流转边框的尺寸 */
+        background-color: #000; 
+      }
+
+      /* 动画 */
+      @keyframes rotate {
+        to {
+          transform: rotate(1turn);
+        }
+      }
+    </style>
+  </head>
+  <body>
+    <div class="box">
+      <button class="btn">边框按钮</button>
+    </div>
+  </body>
+</html>
