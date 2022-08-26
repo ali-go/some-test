@@ -1,0 +1,41 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta http-equiv="X-UA-Compatible" content="IE=edge" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>Document</title>
+    <style>
+      body {
+        padding: 100px;
+      }
+      #upload-label {
+        border: 1px solid #409eff;
+        padding: 5px 8px;
+        background-color: #409eff;
+        color: #fff;
+        border-radius: 5px;
+        cursor: pointer;
+      }
+      #upload-label:hover,
+      #upload-label:focus {
+        background-color: #66b1ff;
+        border-color: #66b1ff;
+      }
+      #upload-input {
+        display: none;
+      }
+    </style>
+  </head>
+  <body>
+    <label for="upload-input" id="upload-label">文件上传</label>
+    <input type="file" id="upload-input" />
+    <div id="old-box">
+      <p>原图</p>
+    </div>
+    <div id="new-box">
+      <p>压缩图</p>
+    </div>
+    <!-- <input type="file" id="upload-input" onchange="handleChangeFile(event)" /> -->
+  </body>
+</html>

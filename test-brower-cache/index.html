@@ -6,9 +6,54 @@
     <meta name="viewport" content="width=device-width, initial-scale=1.0" />
     <title>Document</title>
     <link rel="stylesheet" href="./static/css/index.css" />
+    <script>
+      // 说明：
+      // entryType表示：资源类型 "resource"，还有“navigation”, “mark”, 和 “measure”另外3种。
+      // resource所有请求的静态资源，navigation请求导航信息
+
+      // 在这些资源对象中有一个 transferSize 字段，它表示获取资源的大小，包括响应头字段和响应数据的大小。
+      // 如果这个值为 0，说明是从缓存中直接读取的（强制缓存）。如果这个值不为 0，但是 encodedBodySize 字段为 0，
+      // 说明它走的是协商缓存（encodedBodySize 表示请求响应数据 body 的大小）
+
+      //方式一： 直接获取（当浏览器不支持PerformanceObserver时可以使用）
+      // const results = performance.getEntriesByType("resource");
+      // logFn(results);
+      //  const result2 = performance.getEntriesByType("navigation");
+      //  const result3 = performance.getEntriesByType("mark");
+
+      // 方式二：使用new PerformanceObserver(performanceHandler)监听
+      const observer = new PerformanceObserver((list) => {
+        // for (const entry of list.getEntries()) {
+        //   console.log(entry);
+        // }
+        logFn(list.getEntries());
+      });
+      observer.observe({ type: "resource", buffered: true });
+
+      // 输入日志信息的方法
+      const logFn = function (results) {
+        for (const res of results) {
+          // 以下只取了部分字段
+          const { name, encodedBodySize, entryType, initiatorType, transferSize } = res;
+          const text = `
+							name:${name},
+							transferSize:${transferSize}(${transferSize === 0 ? "当前强缓存" : "不是强缓存"}),
+							encodedBodySize:${encodedBodySize}(${transferSize > 0 && encodedBodySize === 0 ? "协商缓存" : "不是协商缓存"}),
+							entryType:${entryType},
+							initiatorType:${initiatorType}
+						`;
+          console.log(text);
+        }
+      };
+
+      //  console.log(result1,result2,result3);
+      // const observer = new PerformanceObserver(performanceHandler);
+      //  observer.observe();
+    </script>
   </head>
   <body>
     <div>本文是测试浏览器缓存的操作</div>
     <div class="box"></div>
+    <img src="./static/image/2.jpg" alt="" />
   </body>
 </html>
