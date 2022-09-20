@@ -3,7 +3,7 @@ const fs = require("fs");
 
 // 带有env文件地址的类型
 interface OptionType {
-  path: string; // 注意是绝对路径
+  path?: string; // 注意是绝对路径
   isLog?: boolean;
 }
 // 参数类型
@@ -33,7 +33,7 @@ function config(options: argType = undefined) {
       if (!Object.prototype.hasOwnProperty.call(process.env, key)) {
         process.env[key] = parsed[key];
       } else if (debug) {
-        throw new Error(`${key} is already defined in process.env and will not be overwritten`);
+        console.log(`${key} is already defined in process.env and will not be overwritten`);
       }
     });
   } catch (e) {
@@ -56,7 +56,7 @@ function parse(src: string, options: debugType) {
       const val = keyValArr[2] || "";
       obj[key] = val.trim();
     } else if (options.debug) {
-      throw new Error(`did not match key and value when parsing line ${index + 1}`);
+      console.log(`did not match key and value when parsing line ${index + 1}`);
     }
   });
   return obj;
@@ -64,8 +64,8 @@ function parse(src: string, options: debugType) {
 
 export { config };
 
-// let res1 = config();
-// console.log("res1:", res1);
-// let res2 = config({ path: path.resolve(__dirname, "./.env.ali") });
-// console.log("res2:", res2);
+let res1 = config();
+console.log("res1:", res1);
+let res2 = config({ path: path.resolve(__dirname, "./.env.ali") });
+console.log("res2:", res2);
 // console.log(process.env);
