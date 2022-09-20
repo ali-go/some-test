@@ -1,0 +1,106 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+	<meta charset="UTF-8">
+	<meta http-equiv="X-UA-Compatible" content="IE=edge">
+	<meta name="viewport" content="width=device-width, initial-scale=1.0">
+	<title>Document</title>
+</head>
+<body>
+	<form>
+		<input type="text" id="origin-input" name="origin-input" value="测试复制/剪切的文字">
+		<input type="button" value="复制" name="copy"></input>
+		<input type="button" value="剪切" name="cut"></input>
+		<input type="button"value="粘贴" name="paste"></input>
+		<input type="text" id="res-input" name="res-input">
+		<div>
+			<p>测试其他</p>
+			<textarea></textarea>
+		</div>
+	</form>
+	<script>
+		window.addEventListener("load",()=>{
+			// 此处采用form形式直接获取了dom元素了
+			const form = document.forms[0];
+			const originInput = form.elements['origin-input']
+			const resInput = form.elements['res-input']
+			const copy = form.elements['copy']
+			const cut = form.elements['cut']
+			const paste = form.elements['paste']
+
+			// 设置原输入框的一些方法：比如全选或获焦
+			// originInput.focus()
+			// originInput.select()
+
+			// 有选择时获取选中文本：
+			let text = originInput.value;
+			originInput.addEventListener("select",(e)=>{
+				text = originInput.value.substring(originInput.selectionStart,originInput.selectionEnd)
+				console.log(text)
+			})
+
+			// 默认失焦时为全部文本
+			originInput.addEventListener("blur",(e)=>{
+				text = e.target.value;
+			})
+
+			// 注册复制事件
+			copy.addEventListener("click",(e)=>{
+				// 原版：已废弃
+				// document.addEventListener("copy",copyFn)
+				// document.execCommand('copy')
+				// function copyFn(e){
+				// 	console.log(text)
+				// 	const clipboardData = e.clipboardData || window.clipboardData;
+				// 	clipboardData.setData('text/plain',text)
+				// 	document.removeEventListener("copy",copyFn)
+				// 	console.log(clipboardData)
+				// 	e.preventDefault()
+				// }
+				
+				// 新的api：
+				navigator.clipboard.writeText(text).then(()=>{
+					console.log("复制成功")
+				})
+			})
+
+			// 注册剪切事件：
+			cut.addEventListener('click',()=>{
+				let start = originInput.selectionStart
+				let end = originInput.selectionEnd
+				let cutText;
+				if(end > 0){
+					cutText = originInput.value.substring(start,end)
+					text = originInput.value = originInput.value.substring(0,start) + originInput.value.substring(end)
+				}else{
+					cutText = originInput.value
+					text = originInput.value = ""
+				}
+				navigator.clipboard.writeText(cutText).then(()=>{
+					console.log("剪切成功")
+				})
+			})
+
+			// 注册粘贴事件
+			paste.addEventListener('click',(e)=>{
+				// 原版：已废弃
+				// resInput.addEventListener('paste',pasteFn)
+				// document.execCommand('paste',false); // 注意此处额外处理用户权限，此处未写，故该方法会失败返回false
+				// function pasteFn(e){
+				// 	const clipboardData = e.clipboardData || window.clipboardData;
+				// 	let pasetValue = clipboardData.getData('text');
+				// 	resInput.value = pasetValue
+				// 	resInput.removeEventListener('paste',pasteFn)
+				// 	e.preventDefault();
+				// }
+
+				// 新的api:
+				navigator.clipboard.readText().then(res=>{
+						resInput.value = res
+				})
+			})
+			console.log(text)
+		})
+	</script>
+</body>
+</html>
