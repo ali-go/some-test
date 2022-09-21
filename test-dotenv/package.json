@@ -1,21 +1,23 @@
 {
   "name": "test-dotenv",
-  "version": "1.0.0",
+  "version": "1.0.4",
   "description": "基于dotenv的源码阅读，分析获取.env系列文件添加到node的process.env中思路，此处自己写一个简单版本，",
-  "main": "index.js",
+  "main": "dist/index.js",
+  "type": "commonjs",
   "scripts": {
-    "dev": "npx ts-node index.ts",
+    "dev": "npx ts-node ./index.ts",
     "test": "jest"
   },
-  "keywords": [],
-  "author": "",
+  "keywords": [
+    "dotenv"
+  ],
+  "author": "coderali",
   "license": "ISC",
   "devDependencies": {
     "@types/jest": "^29.0.3",
     "babel-jest": "^29.0.3",
     "jest": "^29.0.3",
     "ts-jest": "^29.0.1",
-    "ts-loader": "^9.4.0",
     "typescript": "^4.8.3",
     "webpack": "^5.74.0",
     "webpack-cli": "^4.10.0"

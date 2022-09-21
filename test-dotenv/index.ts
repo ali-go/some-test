@@ -64,8 +64,8 @@ function parse(src: string, options: debugType) {
 
 export { config };
 
-let res1 = config();
-console.log("res1:", res1);
-let res2 = config({ path: path.resolve(__dirname, "./.env.ali") });
-console.log("res2:", res2);
+// let res1 = config();
+// console.log("res1:", res1);
+// let res2 = config({ path: path.resolve(__dirname, "./.env.ali") });
+// console.log("res2:", res2);
 // console.log(process.env);
