@@ -1,6 +1,6 @@
 {
   "name": "test-image-lazy",
-  "version": "1.0.0",
+  "version": "1.0.2",
   "description": "根据IntersectionObserver实现图片懒加载的封装",
   "main": "./lib/index.js",
   "type": "module",
@@ -17,5 +17,9 @@
     "load"
   ],
   "author": "",
-  "license": "ISC"
+  "license": "ISC",
+	"repository": {
+    "type": "git",
+    "url": "https://github.com/ali-go/some-test/tree/main/test-image-lazy"
+  }
 }

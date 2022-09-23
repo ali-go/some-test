@@ -53,11 +53,11 @@ newImage.lazyLoad();
 
 # js：部分代码省略
 this.$nextTick(() => {
-		const imgs = document.getElementsByTagName("img");
-		let options = { lazy: true, rootMargin: "100px" };
-		let newImage = new ImgLoad([...imgs], options, (flag) => {
-			console.log("成功了", flag);
-		});
-		newImage.lazyLoad();
+  const imgs = document.getElementsByTagName("img");
+  let options = { lazy: true, rootMargin: "100px" };
+  let newImage = new ImgLoad([...imgs], options, (flag) => {
+    console.log("成功了", flag);
+  });
+  newImage.lazyLoad();
 });
 ```
