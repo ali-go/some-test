@@ -1,0 +1,21 @@
+{
+  "name": "test-image-lazy",
+  "version": "1.0.0",
+  "description": "根据IntersectionObserver实现图片懒加载的封装",
+  "main": "./lib/index.js",
+  "type": "module",
+  "directories": {
+    "lib": "lib"
+  },
+  "scripts": {
+    "test": "echo \"Error: no test specified\" && exit 1"
+  },
+  "keywords": [
+    "IntersectionObserver",
+    "lazy",
+    "img",
+    "load"
+  ],
+  "author": "",
+  "license": "ISC"
+}

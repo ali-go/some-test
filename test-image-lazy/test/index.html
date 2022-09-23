@@ -1,0 +1,63 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta http-equiv="X-UA-Compatible" content="IE=edge" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>Document</title>
+    <style>
+      .box {
+        width: 500px;
+        height: 1800px;
+        /* overflow-y: scroll; */
+        background-color: gray;
+      }
+      .img-box {
+        width: 200px;
+        height: 150px;
+        padding-top: 200px;
+        /* height: 750px; */
+        background-color: green;
+        border: 1px solid red;
+      }
+      img {
+        width: 100%;
+      }
+    </style>
+  </head>
+  <body>
+    <div class="box">
+      <div class="img-box">
+        <img data-src="../img/1.jpg" alt="" />
+      </div>
+      <div class="img-box">
+        <img data-src="../img/2.jpg" alt="" />
+      </div>
+      <div class="img-box">
+        <img data-src="../img/3.jpg" alt="" />
+      </div>
+      <div class="img-box">
+        <img data-src="../img/4.jpg" alt="" />
+      </div>
+    </div>
+    <script type="module">
+      import { ImgLoad } from "../lib/index.js";
+      window.onload = () => {
+        const imgs = document.getElementsByTagName("img");
+        // 1、html+不懒加载
+        // let options = {};
+        // 2、html+懒加载
+        // let options = { lazy: true };
+        // 3、box元素+懒加载
+        // let options = { root: document.querySelector(".box"), lazy: true };
+        // 4、html+懒加载 距离视口100px
+        // let options = { lazy: true, rootMargin: "100px" };
+        let options = { lazy: true, rootMargin: "100px" };
+        let newImage = new ImgLoad([...imgs], options, (flag) => {
+          console.log("成功了", flag);
+        });
+        newImage.lazyLoad();
+      };
+    </script>
+  </body>
+</html>
