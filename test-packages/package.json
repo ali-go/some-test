@@ -1,0 +1,18 @@
+{
+  "name": "test-packages",
+  "version": "1.0.0",
+  "description": "测试部分npm插件。",
+  "main": "index.js",
+  "type": "module",
+  "scripts": {
+    "test": "echo \"Error: no test specified\" && exit 1"
+  },
+  "author": "",
+  "license": "ISC",
+  "dependencies": {
+    "chalk": "^5.1.2",
+    "enquirer": "^2.3.6",
+    "gradient-string": "^2.0.2",
+    "nanospinner": "^1.1.0"
+  }
+}

@@ -24,6 +24,7 @@ const create = async (ctx, next) => {
   console.log("ready to download");
   // 转义url并打开
   await page.goto(decodeURIComponent(url), { waitUntil: "load" });
+  // await page.goto(encodeURIComponent('https://wenku.baidu.com/view/ec096c5da717866fb84ae45c3b3567ec102ddc1d.html?_wkts_=1668154630197&bdQuery=%E4%B8%96%E7%95%8C%E5%90%84%E4%B8%AA%E5%9B%BD%E5%AE%B6%E9%A6%96%E9%83%BD%E5%8F%8A%E5%85%B6%E7%BB%8F%E7%BA%AC%E5%BA%A6'), { waitUntil: "load" });
   // 等待渲染完成（做几个判断）
   await page.waitForSelector("img", { timeout: 0 }); //等待img加载完成
   await page.waitForNetworkIdle(); //等待网络请求完成
