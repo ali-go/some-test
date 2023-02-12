@@ -1,0 +1,37 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta http-equiv="X-UA-Compatible" content="IE=edge" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>Document</title>
+  </head>
+  <body>
+    <button>确定</button>
+    <ul class="container"></ul>
+    <script>
+      const btn = document.querySelector("button");
+      const ul = document.querySelector(".container");
+      btn.addEventListener("click", () => {
+        const now = Date.now();
+        console.time("jsDate");
+        const count = 10000;
+        for (let i = 0; i < count; i++) {
+          let li = document.createElement("li");
+          li.innerText = `第${i}个`;
+          ul.appendChild(li);
+        }
+        console.timeEnd("jsDate");
+        console.log("js运行时间:", Date.now() - now);
+
+        console.log("以上是同步执行完");
+				console.time('xuanran')
+
+        setTimeout(() => {
+          console.log("总运行时间:", Date.now() - now);
+					console.timeEnd('xuanran')
+        });
+      });
+    </script>
+  </body>
+</html>
