@@ -1,7 +1,7 @@
 {
   "name": "auto-deploy-server",
   "version": "1.0.0",
-  "description": "基于webpack的插件，自动把打包文件部署到服务器",
+  "description": "webpack的插件，自动把打包文件部署到服务器",
   "main": "./index.js",
   "scripts": {
     "test": "echo \"Error: no test specified\" && exit 1",
