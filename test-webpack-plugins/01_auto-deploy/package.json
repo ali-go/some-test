@@ -8,6 +8,14 @@
     "build": "webpack --config webpack.config.js"
   },
   "author": "coderali",
+  "repository": {
+    "url": "https://github.com/ali-go/some-test/tree/main/test-webpack-plugins/01_auto-deploy"
+  },
+  "keywords": [
+    "webpack",
+    "node",
+    "plugin"
+  ],
   "license": "ISC",
   "dependencies": {
     "chalk": "^4.0.0",
