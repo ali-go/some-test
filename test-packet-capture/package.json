@@ -1,0 +1,16 @@
+{
+  "name": "test-packet-capture",
+  "version": "1.0.0",
+  "description": "使用nonde去爬虫爬数据",
+  "main": "index.js",
+  "scripts": {
+    "test": "echo \"Error: no test specified\" && exit 1"
+  },
+  "keywords": [],
+  "author": "",
+  "license": "ISC",
+  "dependencies": {
+    "cheerio": "^1.0.0-rc.12",
+    "puppeteer": "^20.2.1"
+  }
+}
