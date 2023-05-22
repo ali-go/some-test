@@ -44,7 +44,7 @@ async function captureWebData(launchOption = puppeteerOption, pageOption = pageL
   const resData = await page.evaluate(
     async (bodyHandleDom, { isLazyLoad, evaluateFnStr }, { distance, delay, waitGetDataTime }) => {
       // resData：此处通过返回值方式把浏览器运行处理后的结果传到外部node环境中
-      // 特殊说明：经测试，无法通过传参传进函数参数，都会被处理成undefined，因此采用toString+Function的方式拿到自定义的操作函数
+      // 特殊说明：传递进来得参数必须是可序列化的，否则都会被处理成undefined，因此采用toString+Function的方式去序列化和反序列化拿到自定义的操作函数
       let evalStr = evaluateFnStr.substring(evaluateFnStr.indexOf("{") + 1, evaluateFnStr.lastIndexOf("}"));
       let evalFn = new Function(evalStr);
       return new Promise((resolve, reject) => {
@@ -78,7 +78,7 @@ async function captureWebData(launchOption = puppeteerOption, pageOption = pageL
     bodyHandle,
     {
       isLazyLoad,
-      evaluateFnStr: evaluateFn.toString(), // 此处单独传函数会被处理成undefined，暂时不知什么原因
+      evaluateFnStr: evaluateFn.toString(), // 此处单独传函数会被处理成undefined， 传递的参数必须是可序列化的
     },
     lazyloadOption
   );
