@@ -1,0 +1,47 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>拍照并绘制在页面</title>
+    <style>
+      .video-box {
+        position: relative;
+        margin-bottom: 20px;
+      }
+      #canvas {
+        margin: 50px 0;
+      }
+      #text {
+        position: absolute;
+        left: 10px;
+        top: 10px;
+        font-size: 12px;
+        transform: scale(0.8);
+        color: yellow;
+      }
+    </style>
+  </head>
+  <body>
+    <h2>拍照并绘制在页面</h2>
+    <div class="video-box">
+      <video id="video" width="480" height="300" controls></video>
+      <div id="text"></div>
+    </div>
+    <div class="btns">
+      <button onclick="startRecorder()">开始录屏</button>
+      <button onclick="stopRecorder()">停止录屏</button>
+      <button onclick="exportRecorder()">导出录屏</button>
+      <button onclick="clipPhoto()">截取图片</button>
+      <button onclick="exportPhoto()">导出图片</button>
+    </div>
+    <canvas id="canvas"></canvas>
+    <script src="https://unpkg.com/vconsole@latest/dist/vconsole.min.js"></script>
+    <script>
+      // 挂载手机调试工具
+      // VConsole 默认会挂载到 `window.VConsole` 上
+      const vConsole = new window.VConsole();
+    </script>
+    <script src="./index.js"></script>
+  </body>
+</html>
